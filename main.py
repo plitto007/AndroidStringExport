@@ -28,7 +28,11 @@ def string_2_csv(input_path="input_strings.xml", output_path="output_strings.csv
             writer = csv.DictWriter(csv_file, fieldnames=field_names)
             writer.writeheader()
             for resource in b_name:
-                print(resource.get('name') + " -- " + resource.text)
+                # print(resource.get('name') + " -- " + resource.text)
+                translated = resource.get('translatable')
+                if translated == 'false':
+                    print('ignore key: {}'.format(resource.get('name')))
+                    continue
                 writer.writerow({
                     'key': resource.get('name'),
                     'value': resource.text,
